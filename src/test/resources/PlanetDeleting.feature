@@ -7,6 +7,7 @@ Feature: Planet Deleting
     And   the user is on the home page
     And   the user owns the planet "Earth"
     And   the planet "Mars" is in the database
+    And   the planet "Venus" is not in the database
 
   Scenario: Happy Path Moon Deleting
     When  the user has entered "Earth"
@@ -16,6 +17,12 @@ Feature: Planet Deleting
     And   the planet "Earth" is not in their list of planets and moons
 
   Scenario: Sad Path Planet Not Found Deleting
-    When the user has entered "Mars"
-    And the user tries to delete the planet
-    Then the user should see a browser alert saying "Planet not found"
+    When  the user has entered "Mars"
+    And   the user tries to delete the planet
+    Then  the user should see a browser alert saying "Planet not found"
+
+  Scenario: Sad Path Planet Not Owned Deleting
+    Given the user is not the owner of "Mars"
+    When  the user has entered "Mars"
+    And   the user tries to delete the planet
+    Then  the user should see a browser alert saying "Planet not found"
