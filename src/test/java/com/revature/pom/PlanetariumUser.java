@@ -3,10 +3,12 @@ package com.revature.pom;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class User {
+public class PlanetariumUser {
     private WebDriver driver;
+    private String username;
+    private String password;
 
-    public User(WebDriver driver) {
+    public PlanetariumUser(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
