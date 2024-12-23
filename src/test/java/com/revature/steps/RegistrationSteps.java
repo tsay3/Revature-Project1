@@ -2,6 +2,7 @@ package com.revature.steps;
 
 import com.revature.TestRunner;
 import com.revature.utility.DatabaseSetup;
+import com.revature.utility.DatabaseUsers;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -47,11 +48,11 @@ public class RegistrationSteps {
 
     @Given("the username {string} with the password {string} is in the database")
     public void theUsernameWithThePasswordIsInTheDatabase(String username, String password) {
-        DatabaseSetup.forceUserAndPassword(username, password);
+        DatabaseUsers.forceUserAndPassword(username, password);
     }
 
     @And("the user {string} is not in the database")
     public void theUserIsNotInTheDatabase(String username) {
-        DatabaseSetup.forceUserRemoval(username);
+        DatabaseUsers.forceUserRemoval(username);
     }
 }
