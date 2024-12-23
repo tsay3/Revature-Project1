@@ -13,6 +13,11 @@ public class LoginSteps {
         TestRunner.loginPage.goToLoginPage();
     }
 
+    @Given("the user clicks on the register link")
+    public void theUserClicksOnTheRegisterLink() {
+        TestRunner.loginPage.clickRegisterLink();
+    }
+
     @When("the user provides username {string}")
     public void theUserProvidesUsername(String username) {
         TestRunner.loginPage.setUsername(username);

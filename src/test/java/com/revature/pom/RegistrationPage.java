@@ -13,7 +13,7 @@ public class RegistrationPage {
     private WebElement passwordField;
     @FindBy(xpath = "//input[@value='Create']")
     private WebElement registerBtn;
-    @FindBy(xpath = "//input[@value='Login']")
+    @FindBy(tagName = "a")
     private WebElement loginBtn;
 
     private WebDriver driver;
@@ -37,5 +37,9 @@ public class RegistrationPage {
 
     public void goToRegisterPage() {
         driver.get("http://localhost:8080");
+    }
+
+    public void submitCredentials() {
+        registerBtn.click();
     }
 }

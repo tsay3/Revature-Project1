@@ -3,7 +3,7 @@ Feature: Celestial Body Viewing
   Users should see the celestial bodies they own, and only the bodies they own
 
   Background:
-    Given the user "Batman" is logged in
+    Given the user is logged in
     And   the user is on the home page
 
   Scenario: Happy Path Viewing

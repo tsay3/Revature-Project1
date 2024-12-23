@@ -4,6 +4,8 @@ import com.revature.pom.HomePage;
 import com.revature.pom.LoginPage;
 import com.revature.pom.PlanetariumUser;
 import com.revature.pom.RegistrationPage;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;
@@ -30,17 +32,15 @@ public class TestRunner {
     public static HomePage homePage;
 
     @BeforeClass
-    public static void setup() {
+    public static void setUp() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         registrationPage = new RegistrationPage(driver);
+        System.out.println("setUp ran");
     }
-
-    public void goToLoginPage() {driver.get("http://localhost:8080");}
-    public void goToRegisterPage() {driver.get("http://localhost:8080/register");}
     @AfterClass
     public static void tearDown() {
         if (driver != null) {

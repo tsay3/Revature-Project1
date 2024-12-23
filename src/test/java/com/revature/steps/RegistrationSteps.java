@@ -1,15 +1,14 @@
 package com.revature.steps;
 
 import com.revature.TestRunner;
+import com.revature.utility.DatabaseSetup;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
 
 public class RegistrationSteps {
-
-    @Given("the user clicks on the register link")
-    public void theUserClicksOnTheRegisterLink() {
-        TestRunner.loginPage.clickRegisterLink();
-    }
 
     @Given("the user is on the register page")
     public void theUserIsOnTheRegisterPage() {
@@ -18,6 +17,33 @@ public class RegistrationSteps {
 
     @And("the user submits the credentials")
     public void theUserSubmitsTheCredentials() {
-//        TestRunner.driver.findElement()
+        TestRunner.registrationPage.submitCredentials();
+    }
+
+    @Then("the user should get a browser alert saying {string}")
+    public void theUserShouldGetABrowserAlertSaying(String alertMessage) {
+        Alert alert = TestRunner.driver.switchTo().alert();
+        Assert.assertEquals(alert.getText(), alertMessage);
+    }
+
+    @Then("the user should be redirected to the {string} page")
+    public void theUserShouldBeRedirectedToThePage(String page) {
+        switch (page) {
+            case "login":
+                Assert.assertEquals(TestRunner.driver.getTitle(), "Planetarium Login");
+            case "registration":
+                Assert.assertEquals(TestRunner.driver.getTitle(), "Account Creation");
+            default:
+        }
+    }
+
+    @Given("the username {string} with the password {string} is in the database")
+    public void theUsernameWithThePasswordIsInTheDatabase(String username, String password) {
+        DatabaseSetup.forceUserAndPassword(username, password);
+    }
+
+    @And("the user {string} is not in the database")
+    public void theUserIsNotInTheDatabase(String username) {
+        DatabaseSetup.forceUserRemoval(username);
     }
 }

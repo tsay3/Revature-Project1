@@ -1,5 +1,6 @@
 package com.revature.pom;
 
+import com.revature.TestRunner;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +12,7 @@ public class LoginPage {
     private WebElement usernameField;
     @FindBy(id="passwordInput")
     private WebElement passwordField;
-    @FindBy(id="")
+    @FindBy(tagName = "a")
     private WebElement registerLink;
     @FindBy(tagName = "input")
     private WebElement loginBtn;
@@ -23,6 +24,7 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        TestRunner.loginPage = new LoginPage(driver);
         PageFactory.initElements(driver, this);
     }
 
