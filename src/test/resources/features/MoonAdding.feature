@@ -21,7 +21,6 @@ Feature: Moon Adding
     |Q                              |
 
   Scenario Outline: Sad Path Moon Adding
-    Given the planet "Earth" is in the database
     When  the user provides a moon name "<moon>"
     And   the user provides the planet "Earth" that owns the moon
     And   the user tries to add the moon
@@ -34,8 +33,7 @@ Feature: Moon Adding
 
   @MR3
   Scenario: Sad Path Existing Moon Adding
-    Given the planet "Earth" is in the database
-    And   the moon "Luna" exists in the database
+    Given   the moon "Luna" exists in the database
     When  the user provides a moon name "Luna"
     And   the user provides the planet "Earth" that owns the moon
     And   the user tries to add the moon
@@ -43,8 +41,7 @@ Feature: Moon Adding
 
   @MR6 @MR7 @SR2
   Scenario Outline: Happy Path Moon with Image Adding
-    Given the planet "Earth" is in the database
-    And   the moon "Luna" is not in the database
+    Given the moon "Luna" is not in the database
     When  the user provides a moon name "Luna"
     And   the user provides the planet "Earth" that owns the moon
     And   the user provides an image "<filename>"
@@ -61,8 +58,7 @@ Feature: Moon Adding
 
   @MR7
   Scenario Outline: Sad Path Moon with Bad Image Adding
-    Given the planet "Earth" is in the database
-    And   the moon "Luna" is not in the database
+    Given the moon "Luna" is not in the database
     When  the user provides a moon name "Luna"
     And   the user provides an image "<filename>"
     And   the user provides the planet "Earth" that owns the moon
