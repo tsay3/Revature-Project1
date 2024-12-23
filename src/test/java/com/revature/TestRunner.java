@@ -1,8 +1,9 @@
 package com.revature;
 
+import io.cucumber.core.cli.Main;
+
 import com.revature.pom.HomePage;
 import com.revature.pom.LoginPage;
-import com.revature.pom.PlanetariumUser;
 import com.revature.pom.RegistrationPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -25,13 +26,18 @@ import java.time.Duration;
 )
 public class TestRunner {
     public static WebDriver driver = null;
-//    public static PlanetariumUser user;
     public static WebDriverWait wait;
     public static LoginPage loginPage;
     public static RegistrationPage registrationPage;
     public static HomePage homePage;
 
-    @BeforeClass
+    public static void main(String[] args) {
+        setUp();
+        Main.main(args);
+        tearDown();
+    }
+
+//    @BeforeClass
     public static void setUp() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
@@ -41,7 +47,7 @@ public class TestRunner {
         registrationPage = new RegistrationPage(driver);
         System.out.println("setUp ran");
     }
-    @AfterClass
+//    @AfterClass
     public static void tearDown() {
         if (driver != null) {
             driver.quit();

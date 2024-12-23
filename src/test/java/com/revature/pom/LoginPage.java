@@ -24,7 +24,6 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        TestRunner.loginPage = new LoginPage(driver);
         PageFactory.initElements(driver, this);
     }
 

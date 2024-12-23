@@ -7,6 +7,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegistrationSteps {
 
@@ -22,8 +24,14 @@ public class RegistrationSteps {
 
     @Then("the user should get a browser alert saying {string}")
     public void theUserShouldGetABrowserAlertSaying(String alertMessage) {
-        Alert alert = TestRunner.driver.switchTo().alert();
-        Assert.assertEquals(alert.getText(), alertMessage);
+        try {
+            TestRunner.wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = TestRunner.driver.switchTo().alert();
+            Assert.assertEquals(alert.getText(), alertMessage);
+        } catch (TimeoutException e) {
+            Assert.fail(String.format("Alert did not appear, should have reported '%s'",
+                    alertMessage));
+        }
     }
 
     @Then("the user should be redirected to the {string} page")
