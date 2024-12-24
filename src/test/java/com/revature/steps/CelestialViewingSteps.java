@@ -62,4 +62,9 @@ public class CelestialViewingSteps {
     public void theUserShouldNotSeeAnyMoonsFor(String planet) {
         Assert.assertTrue(TestRunner.homePage.noMoonsForPlanet(planet));
     }
+
+    @And("the user selects {string} from the options")
+    public void theUserSelectsFromTheOptions(String option) {
+        TestRunner.homePage.selectOption(option);
+    }
 }

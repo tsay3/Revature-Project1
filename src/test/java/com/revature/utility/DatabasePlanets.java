@@ -89,4 +89,20 @@ public class DatabasePlanets {
         }
         return -1;
     }
+
+    public static boolean forcePlanetRemoval(String planet) {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String deleteStatement = "DELETE FROM planets WHERE name = ?";
+            ps = conn.prepareStatement(deleteStatement);
+            ps.setString(1, planet);
+            ps.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

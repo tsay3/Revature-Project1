@@ -53,4 +53,20 @@ public class DatabaseMoons {
         }
         return false;
     }
+
+    public static boolean forceMoonRemoval(String moon) {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String deleteStatement = "DELETE FROM moons WHERE name = ?";
+            ps = conn.prepareStatement(deleteStatement);
+            ps.setString(1, moon);
+            ps.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

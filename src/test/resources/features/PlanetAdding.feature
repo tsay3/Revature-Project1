@@ -2,16 +2,18 @@
 Feature: Planet Adding
 
   Background:
-    Given the user is on the home page
-    And   the user owns the planet "Earth"
+    Given the user owns the planet "Earth"
+    And   the planet "Pluto" does not exist in the database
+    And   the user is on the home page
+    And   the user selects "Planet" from the options
 
-    @PR1 @PR2
+  @PR1 @PR2
   Scenario Outline: Happy Path Planet Adding
     Given the planet "<planet>" does not exist in the database
     When  the user provides a planet name "<planet>"
     And   the user tries to add the planet
     Then  the planet "<planet>" should be added to the database
-    And   the user should see an updated list of planets and moons
+    And   the user should see the planet "<planet>" in their list of planets and moons
 
   Examples:
     |planet                         |
@@ -36,7 +38,6 @@ Feature: Planet Adding
     Then  the user should see a browser alert saying "Invalid planet name"
 
   Scenario: Happy Path Planet with Image Adding
-    Given the planet "Pluto" does not exist in the database
     When  the user provides a planet name "Pluto"
     And   the user provides an image "planet.png"
     And   the user tries to add the planet

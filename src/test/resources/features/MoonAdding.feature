@@ -49,7 +49,7 @@ Feature: Moon Adding
     Then  the moon "Luna" should be added to the database
     And   "<filename>" should be added to the database
     And   the moon’s picture should be "<filename>"
-    And   the user should see "Luna" in their list of planets and moons
+    And   the user should see the moon "Luna" in their list of planets and moons
 
   Examples:
     |filename             |
