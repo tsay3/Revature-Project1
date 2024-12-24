@@ -48,11 +48,22 @@ public class RegistrationSteps {
 
     @Given("the username {string} with the password {string} is in the database")
     public void theUsernameWithThePasswordIsInTheDatabase(String username, String password) {
-        DatabaseUsers.forceUserAndPassword(username, password);
+        if (!DatabaseUsers.forceUserAndPassword(username, password)) {
+            Assert.fail(String.format("Database error: could not force user '%s' with password '%s' into the database",
+                    username, password));
+        }
     }
 
     @And("the user {string} is not in the database")
     public void theUserIsNotInTheDatabase(String username) {
-        DatabaseUsers.forceUserRemoval(username);
+        if (!DatabaseUsers.forceUserRemoval(username)) {
+            Assert.fail(String.format("Database error: could not remove the user '%s' from the database",
+                    username));
+        }
+    }
+
+    @Then("the registration password field should be hidden")
+    public void theRegistrationPasswordFieldShouldBeHidden() {
+        Assert.assertTrue(TestRunner.registrationPage.verifyPasswordFieldHidden());
     }
 }

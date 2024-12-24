@@ -3,9 +3,9 @@ Feature: Login User Access
   Users must log in to see their planets, and only logged-in users can see their planets
 
   Background: Current Users
-    Given  "Alice" is a user in the database
-    And    "Fan1999" is the password corresponding to "Alice"
-    And    "Robert" is not a user in the database
+    Given  the user "Alice" is in the database
+    And    the user "Alice" has the password "Fan1999"
+    And    the user "Robert" is not in the database
     And    The user is on the login page
 
   Scenario: Happy Path Login
@@ -30,7 +30,7 @@ Feature: Login User Access
     @SR1
   Scenario: Hidden Login Password
     When the user provides password "Fan1993"
-    Then the password field should be hidden
+    Then the login password field should be hidden
 
   Scenario: Happy Path Logout
     Given the user is on the home page

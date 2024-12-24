@@ -46,9 +46,9 @@ Feature: User Registration
     When the user provides username "Frank"
     And the user provides password "Fan19"
     And the user submits the credentials
-    Then the user should get a browser alert saying "Invalid credentials"
+    Then the user should get a browser alert saying "Invalid username"
 
     @SR1
   Scenario: Hidden Registration Password
     When the user provides password "Fan1993"
-    Then the password field should be hidden
+    Then the registration password field should be hidden

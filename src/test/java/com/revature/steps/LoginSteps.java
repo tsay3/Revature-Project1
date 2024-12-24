@@ -28,7 +28,7 @@ public class LoginSteps {
         TestRunner.loginPage.setPassword(password);
     }
 
-    @Then("the password field should be hidden")
+    @Then("the login password field should be hidden")
     public void thePasswordFieldShouldBeHidden() {
         Assert.assertTrue(TestRunner.loginPage.verifyPasswordFieldHidden());
     }

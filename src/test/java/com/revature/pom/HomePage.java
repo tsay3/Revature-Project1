@@ -17,8 +17,30 @@ public class HomePage {
     @FindBy(id = "logoutButton")
     private WebElement logoutButton;
 
+    @FindBy(id = "locationSelect")
+    private WebElement bodyTypeSelector;
+
+    @FindBy(id = "deleteInput")
+    private WebElement deleteInput;
+
+    @FindBy(id = "deleteButton")
+    private WebElement deleteButton;
+
+    @FindBy(id = "moonNameInput")
+    private WebElement moonNameInput;
+
+    @FindBy(id = "orbitedPlanetInput")
+    private WebElement orbitedPlanetInput;
+
+    @FindBy(id = "moonImageInput")
+    private WebElement moonImageInput;
+
+    @FindBy(id = "planetNameInput")
+    private WebElement planetNameInput;
+
     @FindBy(tagName = "tr")
     private List<WebElement> tableRows;
+
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
