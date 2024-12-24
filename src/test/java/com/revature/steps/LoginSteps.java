@@ -1,11 +1,13 @@
 package com.revature.steps;
 
 import com.revature.TestRunner;
+import com.revature.utility.DatabaseUsers;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginSteps {
     @Given("the user is on the login page")
@@ -41,5 +43,55 @@ public class LoginSteps {
     @Then("the user should be denied access to the home page")
     public void theUserShouldBeDeniedAccessToTheHomePage() {
         Assert.assertNotEquals("Home", TestRunner.driver.getTitle());
+    }
+
+    @Given("the user {string} has the password {string}")
+    public void theUserHasThePassword(String username, String password) {
+        if(!DatabaseUsers.forceUserAndPassword(username, password)) {
+            Assert.fail(String.format("Database error: Could not force the username '%s' with the password '%s' into the database",
+                    username, password));
+        }
+    }
+
+    @Then("the user should be redirected to the home page")
+    public void theUserShouldBeRedirectedToTheHomePage() {
+        TestRunner.wait.until(ExpectedConditions.titleIs("Home"));
+        Assert.assertEquals("Home", TestRunner.driver.getTitle());
+    }
+
+    @And("the user should see a greeting")
+    public void theUserShouldSeeAGreeting() {
+        Assert.assertEquals("Welcome to the Home Page Batman",
+                            TestRunner.homePage.getHomePageGreeting());
+    }
+
+    @When("the user logs out")
+    public void theUserLogsOut() {
+        TestRunner.homePage.clickLogout();
+    }
+
+    @Then("the user should be redirected to the login page")
+    public void theUserShouldBeRedirectedToTheLoginPage() {
+        TestRunner.wait.until(ExpectedConditions.titleIs("Planetarium Login"));
+        Assert.assertEquals("Planetarium Login", TestRunner.driver.getTitle());
+    }
+
+    @And("the user should be logged out")
+    public void theUserShouldBeLoggedOut() {
+        TestRunner.homePage.tryDirectAccessToHomePage();
+        Assert.assertNotEquals("Home", TestRunner.driver.getTitle());
+    }
+
+    @Given("the user is not logged in")
+    public void theUserIsNotLoggedIn() {
+        TestRunner.homePage.tryDirectAccessToHomePage();
+        if (TestRunner.driver.getTitle().equals("Home")) {
+            theUserLogsOut();
+        }
+    }
+
+    @When("the user navigates to the home page")
+    public void theUserNavigatesToTheHomePage() {
+        TestRunner.homePage.tryDirectAccessToHomePage();
     }
 }

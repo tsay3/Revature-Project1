@@ -42,7 +42,7 @@ Feature: User Registration
 
   @UR1
   Scenario: Users can not register an account that already exists
-    Given the username "Frank" with the password "Password1" is in the database
+    Given the user "Frank" is in the database
     When the user provides username "Frank"
     And the user provides password "Fan19"
     And the user submits the credentials

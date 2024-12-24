@@ -66,4 +66,12 @@ public class RegistrationSteps {
     public void theRegistrationPasswordFieldShouldBeHidden() {
         Assert.assertTrue(TestRunner.registrationPage.verifyPasswordFieldHidden());
     }
+
+    @Given("the user {string} is in the database")
+    public void theUserIsInTheDatabase(String username) {
+        if (!DatabaseUsers.forceUserAndPassword(username, "Password1")) {
+            Assert.fail(String.format("Database error: could not force user '%s' with password 'Password1' into the database",
+                    username));
+        }
+    }
 }

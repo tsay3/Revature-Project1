@@ -3,29 +3,29 @@ Feature: Login User Access
   Users must log in to see their planets, and only logged-in users can see their planets
 
   Background: Current Users
-    Given  the user "Alice" is in the database
-    And    the user "Alice" has the password "Fan1999"
+    Given  the user "Frank" is in the database
+    And    the user "Frank" has the password "Fan1999"
     And    the user "Robert" is not in the database
-    And    The user is on the login page
+    And    the user is on the login page
 
   Scenario: Happy Path Login
-    When   the user provides username "Alice"
+    When   the user provides username "Frank"
     And    the user provides password "Fan1999"
     And    the user submits the login credentials
     Then   the user should be redirected to the home page
     And    the user should see a greeting
 
   Scenario: Sad Path Wrong Password
-    When the user provides username "Alice"
+    When the user provides username "Frank"
     And the user provides password "Fan1993"
     And the user submits the login credentials
-    Then the user should get a browser alert saying "Invalid Credentials"
+    Then the user should get a browser alert saying "Invalid credentials"
 
   Scenario: Sad Path Username Not Found
     When the user provides username "Robert"
     And the user provides password "Fanta56"
     And the user submits the login credentials
-    Then the user should get a browser alert saying "Invalid Credentials"
+    Then the user should get a browser alert saying "Invalid credentials"
 
     @SR1
   Scenario: Hidden Login Password
