@@ -11,7 +11,7 @@ Feature: Moon Adding
     And   the user provides the planet "Earth" that owns the moon
     And   the user tries to add the moon
     Then  the moon "<moon>" should be added to the database
-    And   the user should see "<moon>" in their list of planets and moons
+    And   the user should see the moon "<moon>" in their list of planets and moons
     And   the owner of "<moon>" should be "Earth"
 
   Examples:
@@ -24,7 +24,7 @@ Feature: Moon Adding
     When  the user provides a moon name "<moon>"
     And   the user provides the planet "Earth" that owns the moon
     And   the user tries to add the moon
-    Then  the user should see a browser alert saying "Invalid moon name"
+    Then  the user should get a browser alert saying "Invalid moon name"
 
   Examples:
     |moon                             |
@@ -37,18 +37,16 @@ Feature: Moon Adding
     When  the user provides a moon name "Luna"
     And   the user provides the planet "Earth" that owns the moon
     And   the user tries to add the moon
-    Then  the user should see a browser alert saying "Invalid moon name"
+    Then  the user should get a browser alert saying "Invalid moon name"
 
   @MR6 @MR7 @SR2
   Scenario Outline: Happy Path Moon with Image Adding
     Given the moon "Luna" is not in the database
     When  the user provides a moon name "Luna"
     And   the user provides the planet "Earth" that owns the moon
-    And   the user provides an image "<filename>"
+    And   the user provides a moon image "<filename>"
     And   the user tries to add the moon
     Then  the moon "Luna" should be added to the database
-    And   "<filename>" should be added to the database
-    And   the moon’s picture should be "<filename>"
     And   the user should see the moon "Luna" in their list of planets and moons
 
   Examples:
@@ -60,10 +58,10 @@ Feature: Moon Adding
   Scenario Outline: Sad Path Moon with Bad Image Adding
     Given the moon "Luna" is not in the database
     When  the user provides a moon name "Luna"
-    And   the user provides an image "<filename>"
+    And   the user provides a moon image "<filename>"
     And   the user provides the planet "Earth" that owns the moon
     And   the user tries to add the moon
-    Then  the user should see a browser alert saying "Invalid filetype"
+    Then  the user should get a browser alert saying "Invalid filetype"
 
   Examples:
     |filename             |

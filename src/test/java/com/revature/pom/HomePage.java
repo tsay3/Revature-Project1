@@ -152,4 +152,12 @@ public class HomePage {
         }
         return true;
     }
+
+    public boolean planetListingDoesNotInclude(String planet) {
+        return !planetListingIncludes(planet);
+    }
+
+    public boolean moonListingDoesNotInclude(String moon) {
+        return !moonListingIncludes(moon);
+    }
 }

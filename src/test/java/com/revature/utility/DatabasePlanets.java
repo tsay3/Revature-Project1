@@ -105,4 +105,60 @@ public class DatabasePlanets {
         }
         return false;
     }
+
+    public static int addNewPlanet(String planet) {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String deleteStatement = "INSERT INTO planets (name, ownerId) VALUES (?, ?)";
+            ps = conn.prepareStatement(deleteStatement);
+            ps.setString(1, planet);
+            ps.setInt(2, 2);
+            ps.executeUpdate();
+            String selectStatement = "SELECT id FROM planets WHERE name = ?";
+            ps.setString(1, planet);
+            rs = ps.executeQuery();
+            return rs.getInt("id");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static int addDummyPlanet() {
+        int dummyId = DatabaseUsers.addDummyUser();
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String name = "Dummy" + String.valueOf(Math.floor(Math.random() * 1000000));
+            String deleteStatement = "INSERT INTO planets (name, ownerId) VALUES (?, ?)";
+            ps = conn.prepareStatement(deleteStatement);
+            ps.setString(1, name);
+            ps.setInt(2, dummyId);
+            ps.executeUpdate();
+            String getPlanet = "SELECT id FROM planets WHERE name = ?";
+            ps = conn.prepareStatement(getPlanet);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            return rs.getInt("id");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static void removeAllDummyPlanets() {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String deleteStatement = "DELETE FROM planets WHERE name LIKE 'Dummy%'";
+            ps = conn.prepareStatement(deleteStatement);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

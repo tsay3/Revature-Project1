@@ -62,4 +62,39 @@ public class DatabaseUsers {
         }
         return false;
     }
+
+    public static int addDummyUser() {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String username = "Dummy" + String.valueOf(Math.floor(Math.random() * 1000000));
+            String deleteStatement = "INSERT INTO users (username, password) VALUES (?, ?)";
+            ps = conn.prepareStatement(deleteStatement);
+            ps.setString(1, username);
+            ps.setString(2, "Password1");
+            ps.executeUpdate();
+            String getUser = "SELECT id FROM users WHERE username = ?";
+            ps = conn.prepareStatement(getUser);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            return rs.getInt("id");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static void removeAllDummyUsers() {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String deleteStatement = "DELETE FROM users WHERE username LIKE 'Dummy%'";
+            ps = conn.prepareStatement(deleteStatement);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

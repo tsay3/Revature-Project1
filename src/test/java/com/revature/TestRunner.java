@@ -1,5 +1,6 @@
 package com.revature;
 
+import com.revature.utility.*;
 import io.cucumber.core.cli.Main;
 
 import com.revature.pom.HomePage;
@@ -49,6 +50,9 @@ public class TestRunner {
     }
 //    @AfterClass
     public static void tearDown() {
+        DatabaseUsers.removeAllDummyUsers();
+        DatabasePlanets.removeAllDummyPlanets();
+
         if (driver != null) {
             driver.quit();
         }

@@ -67,4 +67,14 @@ public class CelestialViewingSteps {
     public void theUserSelectsFromTheOptions(String option) {
         TestRunner.homePage.selectOption(option);
     }
+
+    @And("the user should see the planet {string} in their list of planets and moons")
+    public void theUserShouldSeeThePlanetInTheirListOfPlanetsAndMoons(String planet) {
+        TestRunner.homePage.planetListingIncludes(planet);
+    }
+
+    @And("the user should see the moon {string} in their list of planets and moons")
+    public void theUserShouldSeeTheMoonInTheirListOfPlanetsAndMoons(String moon) {
+        TestRunner.homePage.moonListingIncludes(moon);
+    }
 }

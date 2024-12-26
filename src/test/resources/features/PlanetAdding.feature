@@ -25,7 +25,7 @@ Feature: Planet Adding
   Scenario Outline: Sad Path Invalid Planet Name
     When  the user provides a planet name "<planet>"
     And   the user tries to add the planet
-    Then  the user should see a browser alert saying "Invalid planet name"
+    Then  the user should get a browser alert saying "Invalid planet name"
 
   Examples:
     |planet                          |
@@ -35,21 +35,21 @@ Feature: Planet Adding
   Scenario: Sad Path Planet Already Exists
     When  the user provides planet name "Earth"
     And   the user tries to add the planet
-    Then  the user should see a browser alert saying "Invalid planet name"
+    Then  the user should get a browser alert saying "Invalid planet name"
 
   Scenario: Happy Path Planet with Image Adding
     When  the user provides a planet name "Pluto"
-    And   the user provides an image "planet.png"
+    And   the user provides a planet image "planet.png"
     And   the user tries to add the planet
-    Then  "Pluto" should be added to the database
-    And   the planet’s image is set to "pluto.png"
-    And   the user should see "Pluto" in their list of planets and moons
+    Then  the planet "Pluto" should be added to the database
+    And   the planet's image is set to "pluto.png"
+    And   the user should see the planet "Pluto" in their list of planets and moons
 
   Scenario Outline: Sad Path Planet with Bad Image Adding
     When  the user provides a planet name "Pluto"
-    And   the user provides an image "<filename>"
+    And   the user provides a moon image "<filename>"
     And   the user tries to add the planet
-    Then  the user should see a browser alert saying "Invalid file type"
+    Then  the user should get a browser alert saying "Invalid file type"
 
   Examples:
     |filename               |
