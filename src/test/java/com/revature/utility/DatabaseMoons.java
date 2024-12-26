@@ -108,7 +108,7 @@ public class DatabaseMoons {
             if (!rs.isBeforeFirst()) {
                 return -1;
             } else {
-                // a planet is found, return the data
+                // a moon is found, return the data
                 return rs.getInt("id");
             }
         }

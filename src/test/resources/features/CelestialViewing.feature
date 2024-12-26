@@ -10,15 +10,15 @@ Feature: Celestial Body Viewing
     When  the user is on the home page
     Then  the user should see the planet "Earth" on the home page
 
-  Scenario: Happy Path Moon Viewing
-    Given the planet "Earth" owns the moon "Luna"
-    And   the user is on the home page
-    Then  the user should see the moon "Luna" on the home page
-
   Scenario: Sad Path Planet Viewing
     Given the user owns no planets
     And   the user is on the home page
     Then  the user should not see any planets on the home page
+
+  Scenario: Happy Path Moon Viewing
+    Given the planet "Earth" owns the moon "Luna"
+    And   the user is on the home page
+    Then  the user should see the moon "Luna" on the home page
 
   Scenario: Sad Path Moon Viewing
     Given the planet "Earth" does not own any moons

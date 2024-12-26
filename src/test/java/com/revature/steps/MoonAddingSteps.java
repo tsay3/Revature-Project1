@@ -12,13 +12,13 @@ import org.junit.Assert;
 public class MoonAddingSteps {
     @Given("the moon {string} is not in the database")
     public void theMoonIsNotInTheDatabase(String moon) {
-        DatabaseMoons.forceMoonRemoval(moon);
+        Assert.assertTrue(DatabaseMoons.forceMoonRemoval(moon));
     }
 
     @Given("the moon {string} exists in the database")
     public void theMoonExistsInTheDatabase(String moon) {
         int dummyId = DatabasePlanets.addDummyPlanet();
-        DatabaseMoons.addMoonForPlanet(moon, dummyId);
+        Assert.assertTrue(DatabaseMoons.addMoonForPlanet(moon, dummyId) > 0);
     }
 
     @When("the user provides a moon name {string}")
@@ -28,7 +28,7 @@ public class MoonAddingSteps {
 
     @And("the user tries to add the moon")
     public void theUserTriesToAddTheMoon() {
-        TestRunner.homePage.submitPlanet();
+        TestRunner.homePage.submitCelestialBody();
     }
 
     @And("the user provides a moon image {string}")
@@ -38,7 +38,6 @@ public class MoonAddingSteps {
 
     @And("the user provides the planet {string} that owns the moon")
     public void theUserProvidesThePlanetThatOwnsTheMoon(String planet) {
-
         TestRunner.homePage.enterOrbitedPlanet(planet);
     }
 

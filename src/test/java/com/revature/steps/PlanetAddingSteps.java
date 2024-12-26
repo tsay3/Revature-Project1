@@ -21,7 +21,7 @@ public class PlanetAddingSteps {
     }
     @And("the user tries to add the planet")
     public void theUserTriesToAddThePlanet() {
-        TestRunner.homePage.submitPlanet();
+        TestRunner.homePage.submitCelestialBody();
     }
 
     @Given("the planet {string} is in the database")
@@ -45,8 +45,8 @@ public class PlanetAddingSteps {
         Assert.assertTrue(DatabasePlanets.getPlanetId(planet) > 0);
     }
 
-    @And("the planet's image is set to {string}")
-    public void thePlanetSImageIsSetTo(String planetImage) {
-        TestRunner.homePage.enterPlanetImage(planetImage);
+    @And("the image for planet {string} is set to {string}")
+    public void thePlanetSImageIsSetTo(String planet, String planetImage) {
+        TestRunner.homePage.getImageFor(planet);
     }
 }

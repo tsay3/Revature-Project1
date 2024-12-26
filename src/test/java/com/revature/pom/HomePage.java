@@ -1,13 +1,17 @@
 package com.revature.pom;
 
 import com.revature.utility.DatabasePlanets;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 public class HomePage {
@@ -93,7 +97,7 @@ public class HomePage {
     @FindBy(xpath = "//*[@class='submit-button']")
     private WebElement submitButton;
 
-    public void submitPlanet() { submitButton.click(); }
+    public void submitCelestialBody() { submitButton.click(); }
 
     @FindBy(xpath = "//tbody")
     private List<WebElement> tableRows;
@@ -150,14 +154,26 @@ public class HomePage {
 //        List<WebElement> tableRows = table.findElements(By.tagName("tr"));
         for (WebElement row : tableRows) {
             List<WebElement> tds = row.findElements(By.tagName("td"));
-            if (tds.size() == 4) {
+            int tdIndex = 0;
+            while (tdIndex < tds.size()) {
                 if (tds.get(0).getText().equals("moon")) {
                     if (Integer.parseInt(tds.get(3).getText()) == planetId) {
                         return false;
                     }
                 }
+                tdIndex += 5;
             }
         }
         return true;
+    }
+
+    public void getImageFor(String planet) {
+        try {
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            Path screenshotPath = Paths.get("src/main/resources/screenshot/moon-capture.jpeg");
+            Files.copy(scrFile.toPath(), screenshotPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

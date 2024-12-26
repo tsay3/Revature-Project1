@@ -38,13 +38,18 @@ Feature: Planet Adding
     And   the user tries to add the planet
     Then  the user should get a browser alert saying "Invalid planet name"
 
-  Scenario: Happy Path Planet with Image Adding
+  Scenario Outline: Happy Path Planet with Image Adding
     When  the user provides a planet name "Pluto"
-    And   the user provides a planet image "planet.png"
+    And   the user provides a planet image "<filename>"
     And   the user tries to add the planet
     Then  the planet "Pluto" should be added to the database
-    And   the planet's image is set to "pluto.png"
+    And   the image for planet "Pluto" is set to "<filename>"
     And   the user should see the planet "Pluto" in their list of planets and moons
+
+  Examples:
+    |filename|
+    |planet.png|
+    |planet.jpg|
 
   Scenario Outline: Sad Path Planet with Bad Image Adding
     When  the user provides a planet name "Pluto"

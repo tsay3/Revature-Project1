@@ -25,13 +25,17 @@ public class RegistrationSteps {
 
     @Then("the user should get a browser alert saying {string}")
     public void theUserShouldGetABrowserAlertSaying(String alertMessage) {
+        Alert alert = null;
         try {
             TestRunner.wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = TestRunner.driver.switchTo().alert();
+            alert = TestRunner.driver.switchTo().alert();
             Assert.assertEquals(alert.getText(), alertMessage);
         } catch (TimeoutException e) {
             Assert.fail(String.format("Alert did not appear, should have reported '%s'",
                     alertMessage));
+        } finally {
+            if (alert != null)
+                alert.accept();
         }
     }
 

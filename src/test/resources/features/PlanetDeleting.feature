@@ -19,10 +19,10 @@ Feature: Planet Deleting
   Scenario: Sad Path Planet Not Found Deleting
     When  the user has entered the planet "Mars" to delete
     And   the user tries to delete the planet
-    Then  the user should get a browser alert saying "Planet not found"
+    Then  the user should get a browser alert saying "Invalid planet name"
 
   Scenario: Sad Path Planet Not Owned Deleting
     Given the user is not the owner of the planet "Mars"
     When  the user has entered the planet "Mars" to delete
     And   the user tries to delete the planet
-    Then  the user should get a browser alert saying "Planet not found"
+    Then  the user should get a browser alert saying "Invalid planet name"

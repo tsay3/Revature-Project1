@@ -14,7 +14,8 @@ public class DatabasePlanets {
     public static boolean forceNotOwningPlanet(String planet) {
         // since all of our viewing tests involve the user with an id of 1,
         // to force "not owning", we can duplicate "force owning", but with an id of 2
-        return forceUserOwningPlanet(2, planet);
+        int dummyId = DatabaseUsers.addDummyUser();
+        return forceUserOwningPlanet(dummyId, planet);
     }
 
     public static boolean forceUserDisowningPlanets(int userId) {
@@ -73,19 +74,12 @@ public class DatabasePlanets {
             ps.setString(1, planet);
             rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
-                // no such planet found, we have to insert it
-                String insertStatement = "INSERT INTO planets (name, ownerId) VALUES (?, 1)";
-                ps = conn.prepareStatement(insertStatement);
-                ps.setString(1, planet);
-                ps.executeUpdate();
+                // no such planet found, return -1
+                return -1;
             } else {
                 // a planet is found, return the data
                 return rs.getInt("id");
             }
-            ps = conn.prepareStatement(getPlanet);
-            ps.setString(1, planet);
-            rs = ps.executeQuery();
-            return rs.getInt("id");
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -119,6 +113,7 @@ public class DatabasePlanets {
             ps.setInt(2, 2);
             ps.executeUpdate();
             String selectStatement = "SELECT id FROM planets WHERE name = ?";
+            ps = conn.prepareStatement(selectStatement);
             ps.setString(1, planet);
             rs = ps.executeQuery();
             return rs.getInt("id");

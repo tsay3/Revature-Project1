@@ -17,7 +17,7 @@ Feature: Moon Deleting
   Scenario: Sad Path Moon Not Found Deleting
     When  the user has entered the moon "Death Star" to delete
     And   the user tries to delete the moon
-    Then  the user should get a browser alert saying "Moon not found"
+    Then  the user should get a browser alert saying "Invalid moon name"
 
   @MR5
   Scenario: Happy Path Planet with Moon Deleting
