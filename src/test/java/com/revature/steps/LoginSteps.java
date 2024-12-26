@@ -59,10 +59,9 @@ public class LoginSteps {
         Assert.assertEquals("Home", TestRunner.driver.getTitle());
     }
 
-    @And("the user should see a greeting")
-    public void theUserShouldSeeAGreeting() {
-        Assert.assertEquals("Welcome to the Home Page Batman",
-                            TestRunner.homePage.getHomePageGreeting());
+    @And("the user should see the greeting {string}")
+    public void theUserShouldSeeTheGreeting(String text) {
+        Assert.assertEquals(text, TestRunner.homePage.getHomePageGreeting());
     }
 
     @When("the user logs out")

@@ -67,7 +67,8 @@ public class DatabaseUsers {
         try (Connection conn = DatabaseConnector.getConnection()) {
             PreparedStatement ps;
             ResultSet rs;
-            String username = "Dummy" + String.valueOf(Math.floor(Math.random() * 1000000));
+            String username = "Dummy" + String.valueOf((int)Math.floor(Math.random() * 1000000));
+            System.out.println(String.format("Trying to add user '%s' to database", username));
             String deleteStatement = "INSERT INTO users (username, password) VALUES (?, ?)";
             ps = conn.prepareStatement(deleteStatement);
             ps.setString(1, username);

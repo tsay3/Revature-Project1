@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.time.Duration;
 
 public class LoginPage {
 
@@ -14,7 +17,7 @@ public class LoginPage {
     private WebElement passwordField;
     @FindBy(tagName = "a")
     private WebElement registerLink;
-    @FindBy(tagName = "input")
+    @FindBy(xpath = "//input[3]")
     private WebElement loginBtn;
 
     public void clickRegisterLink() {
@@ -40,6 +43,7 @@ public class LoginPage {
         setUsername("Batman");
         setPassword("Iamthenight1939");
         loginBtn.click();
+        TestRunner.wait.until(ExpectedConditions.titleIs("Home"));
     }
 
     public void goToLoginPage() {

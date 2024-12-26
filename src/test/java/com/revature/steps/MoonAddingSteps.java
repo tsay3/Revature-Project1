@@ -17,7 +17,8 @@ public class MoonAddingSteps {
 
     @Given("the moon {string} exists in the database")
     public void theMoonExistsInTheDatabase(String moon) {
-        DatabaseMoons.addMoon(moon);
+        int dummyId = DatabasePlanets.addDummyPlanet();
+        DatabaseMoons.addMoonForPlanet(moon, dummyId);
     }
 
     @When("the user provides a moon name {string}")
@@ -36,8 +37,9 @@ public class MoonAddingSteps {
     }
 
     @And("the user provides the planet {string} that owns the moon")
-    public void theUserProvidesThePlanetThatOwnsTheMoon(String moon) {
-        TestRunner.homePage.enterMoonName(moon);
+    public void theUserProvidesThePlanetThatOwnsTheMoon(String planet) {
+
+        TestRunner.homePage.enterOrbitedPlanet(planet);
     }
 
     @Then("the moon {string} should be added to the database")

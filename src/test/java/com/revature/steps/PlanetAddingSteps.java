@@ -26,7 +26,8 @@ public class PlanetAddingSteps {
 
     @Given("the planet {string} is in the database")
     public void thePlanetIsInTheDatabase(String planet) {
-        DatabasePlanets.addNewPlanet(planet);
+        if (DatabasePlanets.getPlanetId(planet) == -1)
+            DatabasePlanets.addNewPlanet(planet);
     }
 
     @When("the user provides planet name {string}")

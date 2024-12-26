@@ -36,6 +36,6 @@ public class PlanetDeletingSteps {
 
     @And("the planet {string} is not in their list of planets and moons")
     public void thePlanetIsNotInTheirListOfPlanetsAndMoons(String planet) {
-        Assert.assertTrue(TestRunner.homePage.planetListingDoesNotInclude(planet));
+        Assert.assertFalse(TestRunner.homePage.planetListingIncludes(planet));
     }
 }

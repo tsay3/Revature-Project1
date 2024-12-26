@@ -1,12 +1,13 @@
 Feature: Moon Deleting
 
   Background:
-    Given the user is on the home page
+    Given the user is logged in
     And   the user owns the planet "Earth"
     And   the moon "Luna" is owned by the planet "Earth"
     And   the user does not own the planet "Mars"
     And   the moon "Io" is owned by the planet "Mars"
     And   the moon "Death Star" does not exist in the database
+    And   the user is on the home page
 
   Scenario:Happy Path Moon Deleting
     When  the user has entered the moon "Luna" to delete

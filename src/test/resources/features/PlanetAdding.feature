@@ -2,7 +2,8 @@
 Feature: Planet Adding
 
   Background:
-    Given the user owns the planet "Earth"
+    Given the user is logged in
+    And   the user owns the planet "Earth"
     And   the planet "Pluto" does not exist in the database
     And   the user is on the home page
     And   the user selects "Planet" from the options

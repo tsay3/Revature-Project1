@@ -23,7 +23,10 @@ import java.time.Duration;
 @CucumberOptions(
         features = "classpath:features",
         glue = "com.revature.steps",
-        plugin = {"pretty","html:src/test/resources/reports/html-report.html"}
+        plugin = {"pretty",
+                "html:src/test/resources/reports/html-report.html",
+                "json:src/test/resources/reports/json-report.json"
+        }
 )
 public class TestRunner {
     public static WebDriver driver = null;
@@ -32,23 +35,25 @@ public class TestRunner {
     public static RegistrationPage registrationPage;
     public static HomePage homePage;
 
-    public static void main(String[] args) {
-        setUp();
-        Main.main(args);
-        tearDown();
-    }
+//    public static void main(String[] args) {
+//        DatabaseSetup.main(args);
+//        setUp();
+////        Main.main(args);
+//        tearDown();
+//    }
 
-//    @BeforeClass
+    @BeforeClass
     public static void setUp() {
+        DatabaseSetup.main(new String[]{});
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
         registrationPage = new RegistrationPage(driver);
-        System.out.println("setUp ran");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+//        System.out.println("setUp ran");
     }
-//    @AfterClass
+    @AfterClass
     public static void tearDown() {
         DatabaseUsers.removeAllDummyUsers();
         DatabasePlanets.removeAllDummyPlanets();

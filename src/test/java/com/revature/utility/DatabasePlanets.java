@@ -17,11 +17,14 @@ public class DatabasePlanets {
         return forceUserOwningPlanet(2, planet);
     }
 
-    public static boolean forceUserDisowningPlanets() {
+    public static boolean forceUserDisowningPlanets(int userId) {
+        int dummyId = DatabaseUsers.addDummyUser();
         try (Connection conn = DatabaseConnector.getConnection()) {
             PreparedStatement ps;
-            String updateStatement = "UPDATE planets SET owner_id = 2 WHERE owner_id = 1";
+            String updateStatement = "UPDATE planets SET ownerId = ? WHERE ownerId = ?";
             ps = conn.prepareStatement(updateStatement);
+            ps.setInt(1, dummyId);
+            ps.setInt(2, userId);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -40,14 +43,14 @@ public class DatabasePlanets {
             rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 // no such planet found, we have to insert it
-                String insertStatement = "INSERT INTO planets (name, owner_id) VALUES (?, ?)";
+                String insertStatement = "INSERT INTO planets (name, ownerId) VALUES (?, ?)";
                 ps = conn.prepareStatement(insertStatement);
                 ps.setString(1, planet);
                 ps.setInt(2, user);
                 ps.executeUpdate();
             } else {
                 // a user is found, we have to update the data
-                String updateStatement = "UPDATE planets SET owner_id = ? WHERE name = ?";
+                String updateStatement = "UPDATE planets SET ownerId = ? WHERE name = ?";
                 ps = conn.prepareStatement(updateStatement);
                 ps.setInt(1, user);
                 ps.setString(2, planet);
@@ -71,7 +74,7 @@ public class DatabasePlanets {
             rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 // no such planet found, we have to insert it
-                String insertStatement = "INSERT INTO planets (name, owner_id) VALUES (?, 1)";
+                String insertStatement = "INSERT INTO planets (name, ownerId) VALUES (?, 1)";
                 ps = conn.prepareStatement(insertStatement);
                 ps.setString(1, planet);
                 ps.executeUpdate();
@@ -131,7 +134,8 @@ public class DatabasePlanets {
         try (Connection conn = DatabaseConnector.getConnection()) {
             PreparedStatement ps;
             ResultSet rs;
-            String name = "Dummy" + String.valueOf(Math.floor(Math.random() * 1000000));
+            String name = "Dummy" + String.valueOf((int)Math.floor(Math.random() * 1000000));
+            System.out.println(String.format("Trying to add planet '%s' to database", name));
             String deleteStatement = "INSERT INTO planets (name, ownerId) VALUES (?, ?)";
             ps = conn.prepareStatement(deleteStatement);
             ps.setString(1, name);

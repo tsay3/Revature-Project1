@@ -6,14 +6,15 @@ Feature: Login User Access
     Given  the user "Frank" is in the database
     And    the user "Frank" has the password "Fan1999"
     And    the user "Robert" is not in the database
+    And    the user is not logged in
     And    the user is on the login page
 
   Scenario: Happy Path Login
-    When   the user provides username "Frank"
-    And    the user provides password "Fan1999"
+    When   the user provides username "Batman"
+    And    the user provides password "Iamthenight1939"
     And    the user submits the login credentials
     Then   the user should be redirected to the home page
-    And    the user should see a greeting
+    And    the user should see the greeting "Welcome to the Home Page Batman"
 
   Scenario: Sad Path Wrong Password
     When the user provides username "Frank"

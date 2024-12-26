@@ -2,8 +2,10 @@
 Feature: Moon Adding
 
   Background:
-    Given the user is on the home page
+    Given the user is logged in
     And   the planet "Earth" is in the database
+    And   the user is on the home page
+    And   the user selects "Moon" from the options
 
   Scenario Outline: Happy Path Moon Adding
     Given the moon "<moon>" is not in the database

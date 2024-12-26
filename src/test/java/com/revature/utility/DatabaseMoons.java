@@ -8,11 +8,13 @@ import java.sql.SQLException;
 public class DatabaseMoons {
 
     public static boolean forcePlanetDisowningMoons(int planetId) {
+        int dummyId = DatabasePlanets.addDummyPlanet();
         try (Connection conn = DatabaseConnector.getConnection()) {
             PreparedStatement ps;
-            String updateStatement = "UPDATE moons SET myPlanetId = 9999 WHERE myPlanetId = ?";
+            String updateStatement = "UPDATE moons SET myPlanetId = ? WHERE myPlanetId = ?";
             ps = conn.prepareStatement(updateStatement);
-            ps.setInt(1, planetId);
+            ps.setInt(1, dummyId);
+            ps.setInt(2, planetId);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -30,12 +32,13 @@ public class DatabaseMoons {
         try (Connection conn = DatabaseConnector.getConnection()) {
             PreparedStatement ps;
             ResultSet rs;
-            String getMoonId = "SELECT * FROM moons WHERE myPlanetId = ?";
-            ps = conn.prepareStatement(getMoonId);
-            ps.setInt(1, planetId);
+            String getMoonName = "SELECT * FROM moons WHERE name = ?";
+            ps = conn.prepareStatement(getMoonName);
+            ps.setString(1, moon);
             rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 // no such moon found
+
                 String insertStatement = "INSERT INTO moons (name, myPlanetId) VALUES (?, ?)";
                 ps = conn.prepareStatement(insertStatement);
                 ps.setString(1, moon);
@@ -73,20 +76,18 @@ public class DatabaseMoons {
         return false;
     }
 
-    public static int addMoon(String moon) {
-        int dummyId = DatabasePlanets.addDummyPlanet();
+    public static int addMoonForPlanet(String moon, int planetId) {
         try (Connection conn = DatabaseConnector.getConnection()) {
             PreparedStatement ps;
             ResultSet rs;
-            String name = "Dummy" + String.valueOf(Math.floor(Math.random() * 1000000));
             String insertStatement = "INSERT INTO moons (name, myPlanetId) VALUES (?, ?)";
             ps = conn.prepareStatement(insertStatement);
-            ps.setString(1, name);
-            ps.setInt(2, dummyId);
+            ps.setString(1, moon);
+            ps.setInt(2, planetId);
             ps.executeUpdate();
             String getMoon = "SELECT id FROM moons WHERE name = ?";
             ps = conn.prepareStatement(getMoon);
-            ps.setString(1, name);
+            ps.setString(1, moon);
             rs = ps.executeQuery();
             return rs.getInt("id");
         }

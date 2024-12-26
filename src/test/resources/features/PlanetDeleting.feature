@@ -8,6 +8,7 @@ Feature: Planet Deleting
     And   the user owns the planet "Earth"
     And   the planet "Mars" is in the database
     And   the planet "Venus" is not in the database
+    And   the user selects "Planet" from the options
 
   Scenario: Happy Path Moon Deleting
     When  the user has entered the planet "Earth" to delete

@@ -22,13 +22,13 @@ public class CelestialViewingSteps {
     @Given("the user owns the planet {string}")
     public void theUserOwnsThePlanet(String planetName) {
         // find the planet's id, force user 1 to own it
-        DatabasePlanets.forceOwningPlanet(planetName);
+        Assert.assertTrue(DatabasePlanets.forceOwningPlanet(planetName));
     }
 
     @Given("the user owns no planets")
     public void theUserOwnsNoPlanets() {
         // force all of user 1's planets to be owned by user 2
-        DatabasePlanets.forceUserDisowningPlanets();
+        Assert.assertTrue(DatabasePlanets.forceUserDisowningPlanets(1));
     }
 
     @Given("the planet {string} owns the moon {string}")

@@ -68,7 +68,7 @@ public class HomePage {
 
     public void enterMoonImage(String filename) {
         String moonPath = String.format(
-                "C:\\Users\\thoma\\Documents\\Revature\\Project1\\Planetarium\\src\\main\\resources\\images\\%s",
+                "C:\\Users\\thoma\\Documents\\Revature\\Project1\\Planetarium\\src\\test\\resources\\images\\%s",
                 filename);
         moonImageInput.sendKeys(moonPath);
     }
@@ -85,7 +85,7 @@ public class HomePage {
 
     public void enterPlanetImage(String filename) {
         String planetPath = String.format(
-                "C:\\Users\\thoma\\Documents\\Revature\\Project1\\Planetarium\\src\\main\\resources\\images\\%s",
+                "C:\\Users\\thoma\\Documents\\Revature\\Project1\\Planetarium\\src\\test\\resources\\images\\%s",
                 filename);
         planetImageInput.sendKeys(planetPath);
     }
@@ -95,7 +95,7 @@ public class HomePage {
 
     public void submitPlanet() { submitButton.click(); }
 
-    @FindBy(tagName = "tr")
+    @FindBy(xpath = "//tbody")
     private List<WebElement> tableRows;
 
     public HomePage(WebDriver driver) {
@@ -124,22 +124,30 @@ public class HomePage {
     }
 
     private boolean listingsInclude(String bodyType, String name) {
-        for (WebElement row : tableRows) {
-            List<WebElement> tds = row.findElements(By.tagName("td"));
-            if (tds.size() == 4) {
-                if (tds.get(0).getText().equals(bodyType)) {
-                    if (tds.get(2).getText().equals(name)) {
-                        return true;
+            for (WebElement row : tableRows) {
+//                System.out.println(row);
+                List<WebElement> tds = row.findElements(By.tagName("td"));
+                System.out.println(String.format("There are %d td elements", tds.size()));
+                int tdIndex = 0;
+                while (tdIndex < tds.size()) {
+                    System.out.println(tds.get(tdIndex+0).getText());
+                    System.out.println(tds.get(tdIndex+2).getText());
+                    if (tds.get(tdIndex+0).getText().equals(bodyType)) {
+                        if (tds.get(tdIndex+2).getText().equals(name)) {
+                            return true;
+                        }
                     }
+                    tdIndex += 5;
                 }
             }
-        }
         return false;
     }
 
     public boolean noMoonsForPlanet(String planet) {
         // false if there is even one moon with the planet id
         int planetId = DatabasePlanets.getPlanetId(planet);
+//        WebElement table = tableBody.get(0);
+//        List<WebElement> tableRows = table.findElements(By.tagName("tr"));
         for (WebElement row : tableRows) {
             List<WebElement> tds = row.findElements(By.tagName("td"));
             if (tds.size() == 4) {
@@ -151,13 +159,5 @@ public class HomePage {
             }
         }
         return true;
-    }
-
-    public boolean planetListingDoesNotInclude(String planet) {
-        return !planetListingIncludes(planet);
-    }
-
-    public boolean moonListingDoesNotInclude(String moon) {
-        return !moonListingIncludes(moon);
     }
 }

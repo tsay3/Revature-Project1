@@ -11,7 +11,7 @@ public class RegistrationPage {
     private WebElement usernameField;
     @FindBy(id="passwordInput")
     private WebElement passwordField;
-    @FindBy(xpath = "//input[@value='Create']")
+    @FindBy(xpath = "//input[3]")
     private WebElement registerBtn;
     @FindBy(tagName = "a")
     private WebElement loginBtn;
