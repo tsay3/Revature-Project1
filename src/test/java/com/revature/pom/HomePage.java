@@ -16,6 +16,11 @@ import java.util.List;
 
 public class HomePage {
 
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
     private WebDriver driver;
 
     @FindBy(id = "greeting")
@@ -56,6 +61,7 @@ public class HomePage {
     private WebElement moonNameInput;
 
     public void enterMoonName(String moon) {
+        moonNameInput = driver.findElement(By.id("moonNameInput"));
         moonNameInput.sendKeys(moon);
     }
 
@@ -63,14 +69,16 @@ public class HomePage {
     private WebElement orbitedPlanetInput;
 
     public void enterOrbitedPlanet(String planet) {
+        orbitedPlanetInput = driver.findElement(By.id("orbitedPlanetInput"));
         Integer planetId = DatabasePlanets.getPlanetId(planet);
         orbitedPlanetInput.sendKeys(planetId.toString());
     }
 
-    @FindBy(id = "moonImageInput")
+    @FindBy(xpath = "//input[@id='moonImageInput']")
     private WebElement moonImageInput;
 
     public void enterMoonImage(String filename) {
+        moonImageInput = driver.findElement(By.xpath("//input[@id='moonImageInput']"));
         String moonPath = String.format(
                 "C:\\Users\\thoma\\Documents\\Revature\\Project1\\Planetarium\\src\\test\\resources\\images\\%s",
                 filename);
@@ -81,6 +89,7 @@ public class HomePage {
     private WebElement planetNameInput;
 
     public void enterPlanetName(String planet) {
+        planetNameInput = driver.findElement(By.id("planetNameInput"));
         planetNameInput.sendKeys(planet);
     }
 
@@ -88,6 +97,7 @@ public class HomePage {
     private WebElement planetImageInput;
 
     public void enterPlanetImage(String filename) {
+        planetImageInput = driver.findElement(By.id("planetImageInput"));
         String planetPath = String.format(
                 "C:\\Users\\thoma\\Documents\\Revature\\Project1\\Planetarium\\src\\test\\resources\\images\\%s",
                 filename);
@@ -97,15 +107,13 @@ public class HomePage {
     @FindBy(xpath = "//*[@class='submit-button']")
     private WebElement submitButton;
 
-    public void submitCelestialBody() { submitButton.click(); }
+    public void submitCelestialBody() {
+        submitButton = driver.findElement(By.xpath("//*[@class='submit-button']"));
+        submitButton.click();
+    }
 
     @FindBy(xpath = "//tbody")
     private List<WebElement> tableRows;
-
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
 
     public int getNumberOfCelestialRows() {
         return tableRows.size() - 1;

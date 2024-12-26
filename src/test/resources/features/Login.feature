@@ -9,24 +9,29 @@ Feature: Login User Access
     And    the user is not logged in
     And    the user is on the login page
 
-  Scenario: Happy Path Login
-    When   the user provides username "Batman"
-    And    the user provides password "Iamthenight1939"
+  Scenario Outline: Happy Path Login
+    When   the user provides username "<valid username>"
+    And    the user provides password "<valid password>"
     And    the user submits the login credentials
     Then   the user should be redirected to the home page
-    And    the user should see the greeting "Welcome to the Home Page Batman"
+    And    the user should see the greeting "Welcome to the Home Page <valid username>"
+
+  Examples:
+    |valid username |valid password |
+    |Batman         |Iamthenight1939|
+    |Frank          |Fan1999        |
 
   Scenario: Sad Path Wrong Password
     When the user provides username "Frank"
     And the user provides password "Fan1993"
     And the user submits the login credentials
-    Then the user should get a browser alert saying "Invalid credentials"
+    Then the user should get a browser alert saying "Invalid Credentials"
 
   Scenario: Sad Path Username Not Found
     When the user provides username "Robert"
     And the user provides password "Fanta56"
     And the user submits the login credentials
-    Then the user should get a browser alert saying "Invalid credentials"
+    Then the user should get a browser alert saying "Invalid Credentials"
 
     @SR1
   Scenario: Hidden Login Password

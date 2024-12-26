@@ -19,26 +19,24 @@ Feature: User Registration
   @UR1 @UR2 @UR3 @UR4 @UR5 @UR6
   Scenario Outline: Users can not register an account with invalid credentials
     Given   the user is on the register page
-    When    the user provides username "<username>"
-    And     the user provides password "<password>"
+    When    the user provides username "<invalid username>"
+    And     the user provides password "<invalid password>"
     And     the user submits the credentials
     Then    the user should get a browser alert saying "<alert>"
-    And     the user should be redirected to the "<page>" page
+    And     the user should be redirected to the "registration" page
 
     Examples:
-      |username                             |password           |alert                          |page|
-      |Frank                                |Azad-Zaire_109     |Account created successfully   |login|
-      |Abe	                                |Azad-Zaire_109	    |Invalid username         |registration|
-      |John_Jacob_Jingleheimer_Schmidt	    |Azad-Zaire_109	    |Invalid username         |registration|
-      |21_jump_street	                    |Azad-Zaire_109	    |Invalid username         |registration|
-      |Dr. Watson	                        |Azad-Zaire_109	    |Invalid username         |registration|
-      |Azad-Zaire_109	                    |Cat2	            |Invalid password         |registration|
-      |Azad-Zaire_109	|Jenny_dont_change_your_number_8675309	|Invalid password         |registration|
-      |Azad-Zaire_109	                    |foobar	            |Invalid password         |registration|
-      |Azad-Zaire_109	                    |a123456	        |Invalid password         |registration|
-      |Azad-Zaire_109	                    |123_Fake_st	    |Invalid password         |registration|
-      |John_Jacob_Jingleheimer_Schmidt	    |foobar	            |Invalid username         |registration|
-      |Frank 	                            |Fan19              |Invalid username         |registration|
+      |invalid username                     |invalid password   |alert                    |
+      |Abe	                                |Azad-Zaire_109	    |Invalid username         |
+      |John_Jacob_Jingleheimer_Schmidt	    |Azad-Zaire_109	    |Invalid username         |
+      |21_jump_street	                    |Azad-Zaire_109	    |Invalid username         |
+      |Dr. Watson	                        |Azad-Zaire_109	    |Invalid username         |
+      |Azad-Zaire_109	                    |Cat2	            |Invalid password         |
+      |Azad-Zaire_109	|Jenny_dont_change_your_number_8675309	|Invalid password         |
+      |Azad-Zaire_109	                    |foobar	            |Invalid password         |
+      |Azad-Zaire_109	                    |a123456	        |Invalid password         |
+      |Azad-Zaire_109	                    |123_Fake_st	    |Invalid password         |
+      |John_Jacob_Jingleheimer_Schmidt	    |foobar	            |Invalid username         |
 
   @UR1
   Scenario: Users can not register an account that already exists

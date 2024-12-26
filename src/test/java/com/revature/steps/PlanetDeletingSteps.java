@@ -26,6 +26,7 @@ public class PlanetDeletingSteps {
 
     @Then("the planet {string} should not be in the database")
     public void thePlanetShouldNotBeInTheDatabase(String planet) {
+        System.out.println(String.format("Planet ID is %d", DatabasePlanets.getPlanetId(planet)));
         Assert.assertTrue(DatabasePlanets.getPlanetId(planet) == -1);
     }
 

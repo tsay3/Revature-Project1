@@ -17,8 +17,13 @@ Feature: Celestial Body Viewing
 
   Scenario: Happy Path Moon Viewing
     Given the planet "Earth" owns the moon "Luna"
+    And   the user owns the planet "Mars"
+    And   the planet "Mars" owns the moon "Titan"
     And   the user is on the home page
     Then  the user should see the moon "Luna" on the home page
+    And   the user should see the moon "Titan" on the home page
+    And   the planet "Earth" should own 1 moon
+    And   the planet "Mars" should own 1 moon
 
   Scenario: Sad Path Moon Viewing
     Given the planet "Earth" does not own any moons

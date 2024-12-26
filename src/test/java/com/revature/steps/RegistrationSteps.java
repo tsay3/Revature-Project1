@@ -29,7 +29,7 @@ public class RegistrationSteps {
         try {
             TestRunner.wait.until(ExpectedConditions.alertIsPresent());
             alert = TestRunner.driver.switchTo().alert();
-            Assert.assertEquals(alert.getText(), alertMessage);
+            Assert.assertEquals(alertMessage, alert.getText());
         } catch (TimeoutException e) {
             Assert.fail(String.format("Alert did not appear, should have reported '%s'",
                     alertMessage));
@@ -43,9 +43,9 @@ public class RegistrationSteps {
     public void theUserShouldBeRedirectedToThePage(String page) {
         switch (page) {
             case "login":
-                Assert.assertEquals(TestRunner.driver.getTitle(), "Planetarium Login");
+                Assert.assertEquals("Planetarium Login", TestRunner.driver.getTitle());
             case "registration":
-                Assert.assertEquals(TestRunner.driver.getTitle(), "Account Creation");
+                Assert.assertEquals("Account Creation", TestRunner.driver.getTitle());
             default:
         }
     }

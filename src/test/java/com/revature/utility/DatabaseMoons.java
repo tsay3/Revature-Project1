@@ -109,7 +109,7 @@ public class DatabaseMoons {
                 return -1;
             } else {
                 // a moon is found, return the data
-                return rs.getInt("id");
+                return rs.getInt(1);
             }
         }
         catch (SQLException e) {

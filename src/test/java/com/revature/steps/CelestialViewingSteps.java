@@ -77,4 +77,10 @@ public class CelestialViewingSteps {
     public void theUserShouldSeeTheMoonInTheirListOfPlanetsAndMoons(String moon) {
         TestRunner.homePage.moonListingIncludes(moon);
     }
+
+    @And("the planet {string} should own {int} moon")
+    public void thePlanetShouldOwnMoon(String planet, int numOfMoons) {
+        int planetId = DatabasePlanets.getPlanetId(planet);
+        Assert.assertEquals(numOfMoons, DatabaseMoons.getNumberOfMoonsOwnedBy(planetId));
+    }
 }
