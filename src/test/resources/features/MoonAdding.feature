@@ -3,7 +3,7 @@ Feature: Moon Adding
 
   Background:
     Given the user is logged in
-    And   the planet "Earth" is in the database
+    And   the user owns the planet "Earth"
     And   the user is on the home page
     And   the user selects "Moon" from the options
 
