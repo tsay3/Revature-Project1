@@ -55,8 +55,8 @@ public class TestRunner {
     }
     @AfterClass
     public static void tearDown() {
-        DatabaseUsers.removeAllDummyUsers();
         DatabasePlanets.removeAllDummyPlanets();
+        DatabaseUsers.removeAllDummyUsers();
 
         if (driver != null) {
             driver.quit();

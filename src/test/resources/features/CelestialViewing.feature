@@ -9,6 +9,8 @@ Feature: Celestial Body Viewing
   Scenario: Happy Path Viewing
     When  the user is on the home page
     Then  the user should see the planet "Earth" on the home page
+    And   the planet "Earth" should have an id of 1
+    And   the moon "Luna" should have an id of 1
 
   Scenario: Sad Path Planet Viewing
     Given the user owns no planets

@@ -83,4 +83,14 @@ public class CelestialViewingSteps {
         int planetId = DatabasePlanets.getPlanetId(planet);
         Assert.assertEquals(numOfMoons, DatabaseMoons.getNumberOfMoonsOwnedBy(planetId));
     }
+
+    @Then("the planet {string} should have an id of {int}")
+    public void thePlanetShouldHaveAnIdOf(String planet, int planetId) {
+        Assert.assertEquals(planetId, DatabasePlanets.getPlanetId(planet));
+    }
+
+    @Then("the moon {string} should have an id of {int}")
+    public void theMoonShouldHaveAnIdOf(String moon, int moonId) {
+        Assert.assertEquals(moonId, DatabaseMoons.getMoonId(moon));
+    }
 }
