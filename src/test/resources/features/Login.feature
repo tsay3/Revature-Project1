@@ -25,13 +25,13 @@ Feature: Login User Access
     When the user provides username "Frank"
     And the user provides password "Fan1993"
     And the user submits the login credentials
-    Then the user should get a browser alert saying "Invalid Credentials"
+    Then the user should get a browser alert saying "Invalid credentials"
 
   Scenario: Sad Path Username Not Found
     When the user provides username "Robert"
     And the user provides password "Fanta56"
     And the user submits the login credentials
-    Then the user should get a browser alert saying "Invalid Credentials"
+    Then the user should get a browser alert saying "Invalid credentials"
 
     @SR1
   Scenario: Hidden Login Password
