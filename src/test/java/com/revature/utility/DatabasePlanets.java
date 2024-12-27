@@ -1,9 +1,6 @@
 package com.revature.utility;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabasePlanets {
 
@@ -159,5 +156,22 @@ public class DatabasePlanets {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean hasImageData(int planetId) {
+        try (Connection conn = DatabaseConnector.getConnection()) {
+            PreparedStatement ps;
+            ResultSet rs;
+            String selectStatement = "SELECT image FROM planets WHERE id = ?";
+            ps = conn.prepareStatement(selectStatement);
+            ps.setInt(1, planetId);
+            rs = ps.executeQuery();
+            Blob blob = rs.getBlob("image");
+            return blob != null;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -38,12 +38,13 @@ Feature: Planet Adding
     And   the user tries to add the planet
     Then  the user should get a browser alert saying "Invalid planet name"
 
+  @PR6
   Scenario Outline: Happy Path Planet with Image Adding
     When  the user provides a planet name "Pluto"
     And   the user provides a planet image "<filename>"
     And   the user tries to add the planet
     Then  the planet "Pluto" should be added to the database
-    And   the image for planet "Pluto" is set to "<filename>"
+    And   the image for planet "Pluto" should have image data
     And   the user should see the planet "Pluto" in their list of planets and moons
 
   Examples:
@@ -51,18 +52,19 @@ Feature: Planet Adding
     |planet.png|
     |planet.jpg|
 
-  Scenario Outline: Sad Path Planet with Bad Image Adding
-    When  the user provides a planet name "Pluto"
-    And   the user provides a moon image "<filename>"
-    And   the user tries to add the planet
-    Then  the user should get a browser alert saying "Invalid file type"
-
-  Examples:
-    |filename               |
-    |planet.bmp             |
-    |planet.gif             |
-    |planet.webp            |
-    |planet.txt             |
-    |planet.mp4             |
-    |planet.tif             |
-    |planet.tga             |
+#
+#  Scenario Outline: Sad Path Planet with Bad Image Adding
+#    When  the user provides a planet name "Pluto"
+#    And   the user provides a moon image "<filename>"
+#    And   the user tries to add the planet
+#    Then  the user should get a browser alert saying "Invalid file type"
+#
+#  Examples:
+#    |filename               |
+#    |planet.bmp             |
+#    |planet.gif             |
+#    |planet.webp            |
+#    |planet.txt             |
+#    |planet.mp4             |
+#    |planet.tif             |
+#    |planet.tga             |

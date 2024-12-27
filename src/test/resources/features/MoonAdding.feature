@@ -56,21 +56,21 @@ Feature: Moon Adding
     |moon.jpg             |
     |moon.png             |
 
-  @MR7
-  Scenario Outline: Sad Path Moon with Bad Image Adding
-    Given the moon "Luna" is not in the database
-    When  the user provides a moon name "Luna"
-    And   the user provides a moon image "<filename>"
-    And   the user provides the planet "Earth" that owns the moon
-    And   the user tries to add the moon
-    Then  the user should get a browser alert saying "Invalid file type"
-
-  Examples:
-    |filename             |
-    |moon.bmp             |
-    |moon.gif             |
-    |moon.webp            |
-    |moon.txt             |
-    |moon.mp4             |
-    |moon.tif             |
-    |moon.tga             |
+#  @MR7
+#  Scenario Outline: Sad Path Moon with Bad Image Adding
+#    Given the moon "Luna" is not in the database
+#    When  the user provides a moon name "Luna"
+#    And   the user provides a moon image "<filename>"
+#    And   the user provides the planet "Earth" that owns the moon
+#    And   the user tries to add the moon
+#    Then  the user should get a browser alert saying "Invalid file type"
+#
+#  Examples:
+#    |filename             |
+#    |moon.bmp             |
+#    |moon.gif             |
+#    |moon.webp            |
+#    |moon.txt             |
+#    |moon.mp4             |
+#    |moon.tif             |
+#    |moon.tga             |

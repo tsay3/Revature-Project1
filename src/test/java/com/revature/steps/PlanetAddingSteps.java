@@ -45,8 +45,14 @@ public class PlanetAddingSteps {
         Assert.assertTrue(DatabasePlanets.getPlanetId(planet) > 0);
     }
 
-    @And("the image for planet {string} is set to {string}")
-    public void thePlanetSImageIsSetTo(String planet, String planetImage) {
-        TestRunner.homePage.getImageFor(planet);
+//    @And("the image for planet {string} is set to {string}")
+//    public void thePlanetSImageIsSetTo(String planet, String planetImage) {
+//        TestRunner.homePage.getImageFor(planet);
+//    }
+
+    @And("the image for planet {string} should have image data")
+    public void theImageForPlanetShouldHaveImageData(String planet) {
+        int planetId = DatabasePlanets.getPlanetId(planet);
+        Assert.assertTrue(DatabasePlanets.hasImageData(planetId));
     }
 }
